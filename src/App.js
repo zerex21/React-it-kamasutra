@@ -4,7 +4,7 @@ import Header from './components/Header/Header';
 import Nav from './components/Nav/Nav';
 import Profile from './components/Content/Profile/Profile';
 import Dialogs from './components/Content/Dialogs/Dialogs';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import News from './components/Content/News/News';
 import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
@@ -13,7 +13,7 @@ import Friends from './components/Content/Friends/Friends';
 function App(props) {
  
   return (
-    <BrowserRouter>
+    
      <div className='app-wrapper'>
       <Header/> 
       <Nav state = {props.state.sideBar}/>
@@ -28,7 +28,7 @@ function App(props) {
         </Routes>
       </div>    
     </div>
-    </BrowserRouter>
+   
   );
 }
 
