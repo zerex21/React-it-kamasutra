@@ -14,6 +14,4 @@ const IconFriend = (props) => {
   );
 };
 
-
-
 export default IconFriend;
