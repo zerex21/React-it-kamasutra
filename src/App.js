@@ -19,7 +19,9 @@ function App(props) {
       <Nav state = {props.state.sideBar}/>
       <div className='app-wrapper-content'>
         <Routes>
-          <Route path='/profile' element = {<Profile state = {props.state.profilePage}/>}></Route>
+          <Route path='/profile' element = {<Profile state = {props.state.profilePage} 
+                                 addPost={props.addPost}
+                                 updateNewPostText={props.updateNewPostText}/>}></Route>
           <Route path='/dialogs' element = {<Dialogs state = {props.state.messagesPage}/>}></Route>
           <Route path='/news' element = {<News/>}></Route>
           <Route path='/music' element = {<Music/>}></Route>
@@ -28,7 +30,7 @@ function App(props) {
         </Routes>
       </div>    
     </div>
-   
+    
   );
 }
 
