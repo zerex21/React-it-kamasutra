@@ -14,8 +14,7 @@ const Dialogs = (props) => {
 
 
   let addPost = () =>{
-    let text = addPostElement.current.value;
-    console.log(text)
+    props.addMessage()
   }
 
   let dialogsElements = props.state.dialogs.map(item=>
@@ -26,6 +25,12 @@ const Dialogs = (props) => {
     <Message key={item.id} message={item.message} />
   )
 
+
+  const updateMessageText = () =>{
+    let text = addPostElement.current.value;
+    props.updateMessage(text)
+  }
+
   return (
     <div className={sDialogs.dialogs}>
       <div className={sDialogs.dialogsItems}>
@@ -34,7 +39,7 @@ const Dialogs = (props) => {
       <div className={sDialogs.messages}>
         {messagesElements}
         <div>
-          <textarea ref={addPostElement}></textarea>
+          <textarea ref={addPostElement} value={props.state.newMessage} onChange={updateMessageText}></textarea>
         </div>
         <div>
           <button onClick={addPost}>Add Post</button>

@@ -23,6 +23,7 @@ let state={
             { id: 2, name: "Vova" },
             { id: 3, name: "Sveta" },
           ],
+          newMessage:'Type...'
     },
     sideBar:{
         friends:[
@@ -45,6 +46,24 @@ export const addPost = () =>{
 
   state.profilePage.posts.push(newPost)
   state.profilePage.newPostText=''
+  rerenderTree(state)
+}
+
+export const addMessage = () =>{
+
+  let newMessagePost = {
+    id: 5,
+    message: state.messagesPage.newMessage,
+  }
+
+  state.messagesPage.messages.push(newMessagePost)
+  state.messagesPage.newMessage=''
+  rerenderTree(state)
+}
+
+
+export const updateMessage = (newText) =>{
+  state.messagesPage.newMessage = newText;
   rerenderTree(state)
 }
 

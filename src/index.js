@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import state, { subscribe, updateNewPostText } from './redux/state';
+import state, { addMessage, subscribe, updateMessage, updateNewPostText } from './redux/state';
 import { BrowserRouter } from 'react-router-dom';
 import { addPost } from './redux/state';
 
@@ -14,7 +14,7 @@ let rerenderTree = (state) =>{
   root.render( 
     <React.StrictMode>
       <BrowserRouter>
-        <App state = {state} addPost={addPost} updateNewPostText={updateNewPostText}/>
+        <App state = {state} addPost={addPost} addMessage={addMessage} updateNewPostText={updateNewPostText} updateMessage={updateMessage}/>
       </BrowserRouter>
     </React.StrictMode>
   );
