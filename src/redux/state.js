@@ -1,8 +1,10 @@
-let rerenderTree = () =>{
-  console.log('sss')
-}
+let store = {
 
-let state={
+  _callSubscriber(){
+    console.log('sss')
+  },
+
+  _state:{
     profilePage:{
         posts: [
             { id: 1, message:"Hi", like:2 },
@@ -33,47 +35,65 @@ let state={
         ]
     }
       
-}
+},
 
-
-export const addPost = () =>{
-
+  getState(){
+    return this._state
+  },
+   
+  addPost(){
   let newPost = {
     id: 5,
-    message: state.profilePage.newPostText,
+    message: this._state.profilePage.newPostText,
     like: 12,
   }
 
-  state.profilePage.posts.push(newPost)
-  state.profilePage.newPostText=''
-  rerenderTree(state)
-}
+  this._state.profilePage.posts.push(newPost)
+  this._state.profilePage.newPostText=''
+  this._callSubscriber(this._state)
+},
 
-export const addMessage = () =>{
-
+  addMessage(){
   let newMessagePost = {
     id: 5,
-    message: state.messagesPage.newMessage,
+    message:  this._state.messagesPage.newMessage,
   }
 
-  state.messagesPage.messages.push(newMessagePost)
-  state.messagesPage.newMessage=''
-  rerenderTree(state)
+  this._state.messagesPage.messages.push(newMessagePost)
+  this._state.messagesPage.newMessage=''
+  this._callSubscriber(this._state)
+},
+
+  updateMessage(newText){
+  this._state.messagesPage.newMessage = newText;
+  this._callSubscriber(this._state)
+},
+
+  updateNewPostText(newText){
+  this._state.profilePage.newPostText = newText;
+  this._callSubscriber(this._state)
+},
+
+  subscribe(observer){
+  this._callSubscriber = observer
+},
+
+
 }
 
 
-export const updateMessage = (newText) =>{
-  state.messagesPage.newMessage = newText;
-  rerenderTree(state)
-}
 
-export const updateNewPostText = (newText) =>{
-  state.profilePage.newPostText = newText;
-  rerenderTree(state)
-}
 
-export const subscribe = (observer) =>{
-  rerenderTree = observer
-}
 
-export default state;
+
+/* window.state = state ; */
+
+
+
+
+
+
+
+export default store;
+
+window.store = store
