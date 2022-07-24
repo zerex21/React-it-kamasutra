@@ -1,3 +1,11 @@
+const ADD_POST= "ADD-POST";
+const ADD_MESSAGE= "ADD-MESSAGE";
+const UPDATE_POST= "UPDATE-NEW-POST-TEXT" ;
+const UPDATE_MESSAGE= "UPDATE-MESSAGE" ;
+
+
+
+
 let store = {
 
   _callSubscriber(){
@@ -37,50 +45,83 @@ let store = {
       
 },
 
+  subscribe(observer){
+    this._callSubscriber = observer
+  },
+
   getState(){
     return this._state
   },
-   
-  addPost(){
-  let newPost = {
-    id: 5,
-    message: this._state.profilePage.newPostText,
-    like: 12,
+
+
+  dispatch(action){
+    if(action.type === ADD_POST){
+      
+      let newPost = {
+        id: 5,
+        message: this._state.profilePage.newPostText,
+        like: 12,
+      }
+    
+      this._state.profilePage.posts.push(newPost)
+      this._state.profilePage.newPostText=''
+      this._callSubscriber(this._state)
+    }
+
+    else if(action.type === ADD_MESSAGE){
+      
+      let newMessagePost = {
+        id: 5,
+        message:  this._state.messagesPage.newMessage,
+      }
+    
+      this._state.messagesPage.messages.push(newMessagePost)
+      this._state.messagesPage.newMessage=''
+      this._callSubscriber(this._state)
+    }
+
+   else if(action.type === UPDATE_POST){
+    this._state.profilePage.newPostText = action.newText;
+    this._callSubscriber(this._state)
+   }
+  
+   else if(action.type === UPDATE_MESSAGE){
+    this._state.messagesPage.newMessage = action.newText;
+    this._callSubscriber(this._state)
+   }
   }
-
-  this._state.profilePage.posts.push(newPost)
-  this._state.profilePage.newPostText=''
-  this._callSubscriber(this._state)
-},
-
-  addMessage(){
-  let newMessagePost = {
-    id: 5,
-    message:  this._state.messagesPage.newMessage,
-  }
-
-  this._state.messagesPage.messages.push(newMessagePost)
-  this._state.messagesPage.newMessage=''
-  this._callSubscriber(this._state)
-},
-
-  updateMessage(newText){
-  this._state.messagesPage.newMessage = newText;
-  this._callSubscriber(this._state)
-},
-
-  updateNewPostText(newText){
-  this._state.profilePage.newPostText = newText;
-  this._callSubscriber(this._state)
-},
-
-  subscribe(observer){
-  this._callSubscriber = observer
-},
 
 
 }
 
+
+export let addPostCreator = () =>{
+  return{
+    type:ADD_POST,
+  }
+}
+
+export let updatePostCreator = (text) =>{
+  return{
+    type:UPDATE_POST,
+    newText:text,
+  }
+}
+
+
+ 
+export let addMessageCreator = () =>{
+  return{
+    type:ADD_MESSAGE,
+  }
+ } 
+  
+export let updateMessageCreator = (text) =>{
+   return{
+     type:UPDATE_MESSAGE,
+     newText:text,
+   }
+ }
 
 
 

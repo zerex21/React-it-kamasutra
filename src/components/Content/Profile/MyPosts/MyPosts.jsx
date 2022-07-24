@@ -1,8 +1,10 @@
 import React from "react";
-/* import { updateNewPostText } from "../../../../redux/state"; */
-/* import { rerenderTree } from "../../../../render"; */
+import { addPostCreator, updatePostCreator } from "../../../../redux/state";
 import sMyPosts from "./MyPosts.module.css";
 import Post from "./Post/Post";
+
+
+
 
 const MyPosts = (props) => {
 
@@ -12,14 +14,14 @@ const MyPosts = (props) => {
   let newPostElement = React.createRef()
 
   let addPost = () =>{
-    props.addPost();
+    props.dispatch(addPostCreator());
    /*  newPostElement.current.value=''; */
     /* rerenderTree() */
   }
 
   let onPostChange = () =>{
     let text = newPostElement.current.value
-    props.updateNewPostText(text)
+    props.dispatch(updatePostCreator(text))
     
   }
 
