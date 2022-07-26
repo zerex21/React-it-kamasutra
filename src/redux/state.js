@@ -1,9 +1,5 @@
-const ADD_POST= "ADD-POST";
-const ADD_MESSAGE= "ADD-MESSAGE";
-const UPDATE_POST= "UPDATE-NEW-POST-TEXT" ;
-const UPDATE_MESSAGE= "UPDATE-MESSAGE" ;
-
-
+import messageReducer from "./messageReducer";
+import profileReducer from "./profileReducer";
 
 
 let store = {
@@ -18,7 +14,7 @@ let store = {
             { id: 1, message:"Hi", like:2 },
             { id: 2, message:"Yo", like:2},
           ],
-        newPostText:'Type...'
+        newPostText:''
        
     },
     messagesPage:{
@@ -33,7 +29,7 @@ let store = {
             { id: 2, name: "Vova" },
             { id: 3, name: "Sveta" },
           ],
-          newMessage:'Type...'
+          newMessage:''
     },
     sideBar:{
         friends:[
@@ -55,73 +51,21 @@ let store = {
 
 
   dispatch(action){
-    if(action.type === ADD_POST){
-      
-      let newPost = {
-        id: 5,
-        message: this._state.profilePage.newPostText,
-        like: 12,
-      }
+
+    this._state.profilePage = profileReducer(this._state.profilePage, action)
+    this._state.messagesPage = messageReducer(this._state.messagesPage, action)
     
-      this._state.profilePage.posts.push(newPost)
-      this._state.profilePage.newPostText=''
-      this._callSubscriber(this._state)
-    }
-
-    else if(action.type === ADD_MESSAGE){
-      
-      let newMessagePost = {
-        id: 5,
-        message:  this._state.messagesPage.newMessage,
-      }
-    
-      this._state.messagesPage.messages.push(newMessagePost)
-      this._state.messagesPage.newMessage=''
-      this._callSubscriber(this._state)
-    }
-
-   else if(action.type === UPDATE_POST){
-    this._state.profilePage.newPostText = action.newText;
     this._callSubscriber(this._state)
-   }
-  
-   else if(action.type === UPDATE_MESSAGE){
-    this._state.messagesPage.newMessage = action.newText;
-    this._callSubscriber(this._state)
-   }
+
   }
 
 
 }
 
 
-export let addPostCreator = () =>{
-  return{
-    type:ADD_POST,
-  }
-}
-
-export let updatePostCreator = (text) =>{
-  return{
-    type:UPDATE_POST,
-    newText:text,
-  }
-}
 
 
  
-export let addMessageCreator = () =>{
-  return{
-    type:ADD_MESSAGE,
-  }
- } 
-  
-export let updateMessageCreator = (text) =>{
-   return{
-     type:UPDATE_MESSAGE,
-     newText:text,
-   }
- }
 
 
 

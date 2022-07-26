@@ -1,5 +1,5 @@
 import React from "react";
-import { addMessageCreator, updateMessageCreator } from "../../../redux/state";
+import { addMessageCreator, updateMessageCreator } from "../../../redux/messageReducer";
 import sDialogs from "./Dialogs.module.css";
 import DialogItem from "./DialogsItem/DialogsItem";
 import Message from "./MessagesItem/MessagesItem";
@@ -11,16 +11,12 @@ import Message from "./MessagesItem/MessagesItem";
 const Dialogs = (props) => {
 
 
-  let addPostElement = React.createRef()
-
-
-
   let addPost = () =>{
     props.dispatch(addMessageCreator())
   }
 
-  let updateMessageText = () =>{
-    let text = addPostElement.current.value;
+  let updateMessageText = (e) =>{
+    let text = e.target.value;
     props.dispatch(updateMessageCreator(text))
   }
 
@@ -44,7 +40,7 @@ const Dialogs = (props) => {
       <div className={sDialogs.messages}>
         {messagesElements}
         <div>
-          <textarea ref={addPostElement} value={props.state.newMessage} onChange={updateMessageText}></textarea>
+          <textarea value={props.state.newMessage} placeholder='Enter your message...' onChange={updateMessageText}></textarea>
         </div>
         <div>
           <button onClick={addPost}>Add Post</button>
@@ -53,6 +49,6 @@ const Dialogs = (props) => {
     </div>
   );
   
-};
+}
 
 export default Dialogs;
